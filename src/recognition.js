@@ -23,6 +23,8 @@ RecognitionService.prototype._checkErrors = function(body) {
   });
 };
 
+
+// Request probably should be taken out into a separate method.
 RecognitionService.prototype.getBalance = function() {
   return new Promise(function(resolve, reject) {
     var url = this.service + '/res.php?action=getbalance&key='+this.token;
