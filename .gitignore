@@ -1,3 +1,6 @@
+# Temporary files
+test.coffee
+
 # Logs
 logs
 *.log

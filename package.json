@@ -1,0 +1,30 @@
+{
+  "name": "recognition",
+  "version": "0.0.1",
+  "description": "Captcha recognition services API wrapper.",
+  "main": "src/recognition.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pathetic/recognition.git"
+  },
+  "keywords": [
+    "antigate",
+    "anti-captcha",
+    "rucaptcha",
+    "ripcaptcha",
+    "recognition"
+  ],
+  "author": "pathetic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pathetic/recognition/issues"
+  },
+  "homepage": "https://github.com/pathetic/recognition#readme",
+  "dependencies": {
+    "bluebird": "^2.9.32",
+    "request": "^2.58.0"
+  }
+}
