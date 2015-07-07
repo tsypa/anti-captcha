@@ -1,4 +1,5 @@
 var request = require('request');
+var fs      = require('fs');
 
 function RecognitionService(service, token) {
   this.service = service;
@@ -23,8 +24,6 @@ RecognitionService.prototype._checkErrors = function(body) {
   });
 };
 
-
-// Request probably should be taken out into a separate method.
 RecognitionService.prototype.getBalance = function() {
   return new Promise(function(resolve, reject) {
     var url = this.service + '/res.php?action=getbalance&key='+this.token;
@@ -35,6 +34,71 @@ RecognitionService.prototype.getBalance = function() {
         resolve(this._checkErrors(body));
       }
     }.bind(this));
+  }.bind(this));
+};
+
+RecognitionService.prototype.downloadImage = function(url) {
+  return new Promise(function(resolve, reject) {
+    request.get(url, function(error, response, body) {
+      if (error) {
+        return reject(error)
+      }
+      return resolve('' + new Buffer(body).toString('base64'));
+    });
+  });
+};
+
+RecognitionService.prototype.uploadCaptcha = function(base64, parameters) {
+  var url = this.service + '/in.php';
+
+  var formData = {
+    method: 'base64',
+    key: this.token,
+    body: base64
+  }
+
+  return new Promise(function(resolve, reject) {
+    request.post({url: url, form: formData}, function(error, response, body) {
+      if (error) {
+        return reject(error);
+      }
+
+      this._checkErrors(body).then(function(body) {
+        return resolve({id: parseInt(body.toString().split('|')[1])})
+      }).catch(function(error) {
+        return reject(error);
+      });
+    }.bind(this));
+  }.bind(this));
+};
+
+RecognitionService.prototype.getText = function(captcha) {
+  return new Promise(function(resolve, reject) {
+    if (!captcha.id) {
+      return reject('You should pass an {id: \'captcha id\'}');
+    }
+
+    var url = this.service+'/res.php?action=get&id='+captcha.id+'&key='+this.token;
+
+    var interval = setInterval(function(url) {
+      request.get(url, function(error, response, body) {
+        if (error) {
+          return reject(error);
+        }
+
+        this._checkErrors(body).then(function(body) {
+          clearInterval(interval);
+          return resolve({id: captcha.id, text: body.toString().split('|')[1]})
+        })
+        .catch(function(error) {
+          if ('CAPCHA_NOT_READY' !== error) {
+            clearInterval(interval);
+            return reject(error);
+          }
+        });
+
+      }.bind(this));
+    }.bind(this), 3000, url);
   }.bind(this));
 };
 
