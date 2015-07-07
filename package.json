@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/pathetic/recognition#readme",
   "dependencies": {
-    "bluebird": "^2.9.32",
     "request": "^2.58.0"
   }
 }
