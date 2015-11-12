@@ -56,6 +56,12 @@ RecognitionService.prototype.uploadCaptcha = function(base64, parameters) {
     body: base64
   }
 
+  for (var p in parameters) {
+    if (parameters.hasOwnProperty(p)) {
+      formData[p] = parameters[p];
+    }
+  }
+
   return new Promise(function(resolve, reject) {
     request.post({url: url, form: formData}, function(error, response, body) {
       if (error) {
