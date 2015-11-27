@@ -1,6 +1,6 @@
 {
   "name": "anti-captcha",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Captcha recognition services API wrapper.",
   "main": "src/recognition.js",
   "scripts": {
