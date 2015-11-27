@@ -1,6 +1,6 @@
 {
-  "name": "recognition",
-  "version": "0.0.1",
+  "name": "anti-captcha",
+  "version": "0.0.2",
   "description": "Captcha recognition services API wrapper.",
   "main": "src/recognition.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pathetic/recognition.git"
+    "url": "git+https://github.com/tsypa/recognition.git"
   },
   "keywords": [
     "antigate",
@@ -18,11 +18,16 @@
     "recognition"
   ],
   "author": "pathetic",
+  "contributors": [{
+    "name": "Maxim Tsyplakov"
+    ,"email": "maxim.tsyplakov@gmail.com"
+    ,"url": "http://flex.oganer.net"
+  }],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pathetic/recognition/issues"
+    "url": "https://github.com/tsypa/recognition/issues"
   },
-  "homepage": "https://github.com/pathetic/recognition#readme",
+  "homepage": "https://github.com/tsypa/recognition#readme",
   "dependencies": {
     "request": "^2.58.0"
   }
