@@ -107,6 +107,24 @@ RecognitionService.prototype.getText = function(captcha) {
   }.bind(this));
 };
 
+RecognitionService.prototype.reportBad = function(captcha) {
+  return new Promise(function(resolve, reject) {
+    if (!captcha.id) {
+      return reject('You should pass an {id: \'captcha id\'}');
+    }
+
+    var url = this.service + '/res.php?action=reportbad&key='+this.token+'&id='+captcha.id;
+
+    request.get(url, function(error, response, body) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(this._checkErrors(body));
+      }
+    }.bind(this));
+  }.bind(this));
+};
+
 module.exports = function(service, token) {
   return new RecognitionService(service, token);
 };
